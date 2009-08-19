@@ -68,7 +68,7 @@ multi sub svg-line(:$from!, :$to!, :$text!, :$y!) {
         :width(($to - $from) * $s),
         :y($y * 2 * $font-size + 100),
         :height(2 * $font-size),
-        :style('stroke: black; stroke-width: 1; fill: grey; opacity: 10%'),
+        :style('stroke: black; stroke-width: 1; fill: rgb(220,220,220); opacity: 10%'),
     ];
     take 'text' => [
         :x(($from + $to) * $s / 2),
@@ -88,7 +88,7 @@ token who { man | woman }
 
 my $x = 'the 1,000,000 woman';
 
-if $x ~~ m/:s  (<[10,]>+) <who> $ / {
+if $x ~~ m/:s  ((\d+) ** ',') <who> $ / {
     svg-dump($/, $x);
 } else {
     die "no match";
