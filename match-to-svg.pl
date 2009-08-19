@@ -66,13 +66,13 @@ multi sub svg-line(:$from!, :$to!, :$text!, :$y!) {
     take 'rect' => [
         :x($from * $s),
         :width(($to - $from) * $s),
-        :y($y * 2 * $font-size + 100),
+        :y($y * 2 * $font-size + 50),
         :height(2 * $font-size),
         :style('stroke: black; stroke-width: 1; fill: rgb(220,220,220); opacity: 10%'),
     ];
     take 'text' => [
         :x(($from + $to) * $s / 2),
-        :y($y * 2 * $font-size + 100 + $font-size),
+        :y($y * 2 * $font-size + 50 + $font-size),
         :text-anchor<middle>,
         :font-size($font-size),
         :font-family<monospace>,
@@ -84,11 +84,12 @@ multi sub svg-line(:$from!, :$to!, :$text!, :$y!) {
 
 #// # unconfuse vim
 
-token who { man | woman }
+token fruit     { banana | apple }
+token currency  { 'USD' | 'dollar' | 'EUR' | '$' | '€' }
 
-my $x = 'the 1,000,000 woman';
+my $x = 'just 20,000 dollar per apple';
 
-if $x ~~ m/:s  ((\d+) ** ',') <who> $ / {
+if $x ~~ m/:s ((\d+) ** ',') <currency> 'per' <fruit> $ / {
     svg-dump($/, $x);
 } else {
     die "no match";
