@@ -9,9 +9,7 @@ my $margin      = 10;
 our $s;
 
 
-multi sub svg-dump(Match $m, $orig = ~$m) is export {
-    # XXX $chars should be $m.orig.chars by default,
-    # but blocks on RT #68680
+multi sub svg-dump(Match $m, $orig = $m.orig) is export {
     my $chars = $orig.chars;
     my $font-width  = $font-size * 0.6;
     my $scale       = $width / ($font-width * $chars);
@@ -54,9 +52,7 @@ multi sub svg-dump(Match $m, Str $path, $y) {
 
     for $m.caps -> $c {
         my $k = $c.key;
-        my $newkey = $k ~~ Int ?? "[$k]" !! "&lt;$k&gt;"; # ugly hack
-                                                          # until SVG.pm
-                                                          # does some escaping
+        my $newkey = $k ~~ Int ?? "[$k]" !! "<$k>;";
         svg-dump($c.value, $path ~ $newkey, $y+1);
     }
 }

@@ -9,7 +9,7 @@ token currency  { 'USD' | 'dollar' | 'EUR' | '$' | '€' }
 my $x = 'just 20,000 dollar per apple';
 
 if $x ~~ m/:s ((\d+) ** ',') <currency> 'per' <fruit> $ / {
-    svg-dump($/, $x);
+    svg-dump($/);
 } else {
     die "no match";
 }
